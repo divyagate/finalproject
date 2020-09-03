@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">finalproject</string>
+    <string name="repourl">https://api.punkapi.com/v2/beers</string>
+</resources>
