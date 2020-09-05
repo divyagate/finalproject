@@ -25,13 +25,22 @@ public class Punkapi implements Parcelable{
         this.description=description;
     }
 
+
     protected Punkapi(Parcel in) {
         id = in.readInt();
         name = in.readString();
         image_url = in.readString();
-        abv = in.readDouble();
+        if (in.readByte() == 0) {
+            abv = null;
+        } else {
+            abv = in.readDouble();
+        }
         ibu = in.readInt();
-        ph = in.readDouble();
+        if (in.readByte() == 0) {
+            ph = null;
+        } else {
+            ph = in.readDouble();
+        }
         tagline = in.readString();
         description = in.readString();
     }
@@ -104,7 +113,6 @@ public class Punkapi implements Parcelable{
         this.description = description;
     }
 
-
     @Override
     public int describeContents() {
         return 0;
@@ -115,9 +123,19 @@ public class Punkapi implements Parcelable{
         parcel.writeInt(id);
         parcel.writeString(name);
         parcel.writeString(image_url);
-        parcel.writeDouble(abv);
+        if (abv == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeDouble(abv);
+        }
         parcel.writeInt(ibu);
-        parcel.writeDouble(ph);
+        if (ph == null) {
+            parcel.writeByte((byte) 0);
+        } else {
+            parcel.writeByte((byte) 1);
+            parcel.writeDouble(ph);
+        }
         parcel.writeString(tagline);
         parcel.writeString(description);
     }
